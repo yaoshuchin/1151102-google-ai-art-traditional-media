@@ -3,7 +3,7 @@
 > **授課講師**：黃信溢（茶米老師）/ 沃克資訊  
 > **研習時長**：6 小時完整研習  
 > **系統存取密碼**：`nato`  
-> **線上教學網站**：[GitHub Pages 網址連結](#)
+> **線上教學網站**：[https://yaoshuchin.github.io/1151102-google-ai-art-traditional-media/](https://yaoshuchin.github.io/1151102-google-ai-art-traditional-media/)
 
 ---
 
