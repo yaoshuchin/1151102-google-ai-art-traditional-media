@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google AI 輔助藝術創作與銜接傳統媒材 · 6小時研習學員實作手冊與 Prompt 詠唱指南</title>
+    <meta name="description" content="由茶米老師（黃信溢）主講之 6 小時旗艦課程：涵蓋 Google Arts & Culture、Gemini 結構化詠唱、Nano Banana 2 影像生成、Google Pics 專業修圖與 Vibe Coding 互動軟體藝術創作。">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎨</text></svg>">
+</head>
+<body>
+
+    <!-- =====================================================================
+         1. PASSWORD ACCESS GATE (Password: nato)
+         ===================================================================== -->
+    <div id="passwordGate" class="password-gate-overlay">
+        <div class="gate-card">
+            <div class="gate-icon-badge">🔐</div>
+            <h2 class="gate-title">學員研習專屬認證通道</h2>
+            <p class="gate-subtitle">
+                歡迎蒞臨【Google AI 輔助藝術創作與銜接傳統媒材】旗艦研習手冊。<br>
+                請輸入研習存取通行碼以解鎖完整課程教材與 Prompt 詠唱寶典。
+            </p>
+            <form id="gateForm" class="gate-form">
+                <div class="gate-input-wrapper">
+                    <input type="password" id="gateInput" class="gate-input" placeholder="請輸入存取通行碼 (nato)" autocomplete="current-password" required>
+                    <button type="button" id="togglePw" class="gate-toggle-pw" title="顯示/隱藏密碼">👁️</button>
+                </div>
+                <button type="submit" class="gate-btn-submit">
+                    <span>✨</span>
+                    <span>立即解鎖進入學習網</span>
+                </button>
+                <div id="gateError" class="gate-error-msg"></div>
+            </form>
+            <div class="gate-hint">
+                💡 研習通關密碼：<strong>nato</strong>（輸入後可長久保留登入狀態）
+            </div>
+        </div>
+    </div>
+
+    <!-- =====================================================================
+         2. SITE HEADER & NAVIGATION
+         ===================================================================== -->
+    <header class="site-header">
+        <div class="header-container">
+            <a href="#" class="brand-wrapper">
+                <div class="brand-logo-badge">🎨</div>
+                <div class="brand-text">
+                    <h1>Google AI 輔助藝術創作與銜接傳統媒材</h1>
+                    <p>6小時完整研習 · 學員實作手冊 & Prompt 詠唱寶典 · 茶米老師教室</p>
+                </div>
+            </a>
+            <div class="header-controls">
+                <button id="btnThemeToggle" class="btn-icon" title="切換深色/淺色外觀">🌙</button>
+                <button id="btnLock" class="btn-pill" title="重新鎖定網頁">🔒 重新上鎖</button>
+                <a href="https://drive.google.com/drive/folders/1RlfimRCwNTQMnMTN69RSXLMTVNG9HB9v?usp=sharing" target="_blank" rel="noopener noreferrer" class="btn-pill primary">
+                    📁 雲端素材包
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- =====================================================================
+         3. HERO BANNER
+         ===================================================================== -->
+    <section class="hero-banner">
+        <div class="hero-container">
+            <div class="hero-badge-row">
+                <span class="hero-badge">🌟 6 小時全方位旗艦研習</span>
+                <span class="hero-badge">🏛️ Google Arts & Culture</span>
+                <span class="hero-badge">🍌 Nano Banana 2 生圖</span>
+                <span class="hero-badge">🪄 Google Pics 專業修圖</span>
+                <span class="hero-badge">💻 Vibe Coding 程式即藝術</span>
+            </div>
+            <h2 class="hero-title">
+                以 AI 為數位畫布上的調色盤 · 賦予傳統藝術媒材全新生命
+            </h2>
+            <p class="hero-desc">
+                本教學手冊將簡報全方位解構並擴充為深度學員指引。結合油畫厚塗、水彩暈染、色鉛筆質地、日系漫畫線條與羊毛氈手作微縮世界，系統化收錄 33 個完整主題、清晰外鏈指引、萬能提示詞公式與一鍵複製 Prompt，帶領創作者跨越虛擬與實體媒材的鴻溝。
+            </p>
+
+            <div class="hero-meta-grid">
+                <div class="hero-meta-card">
+                    <div class="meta-label">授課講師</div>
+                    <div class="meta-value">黃信溢（茶米老師）/ 沃克資訊</div>
+                </div>
+                <div class="hero-meta-card">
+                    <div class="meta-label">研習時數</div>
+                    <div class="meta-value">6 小時精煉實作教學</div>
+                </div>
+                <div class="hero-meta-card">
+                    <div class="meta-label">即時白板協作</div>
+                    <div class="meta-value">ce2.ai 互動平台</div>
+                </div>
+                <div class="hero-meta-card">
+                    <div class="meta-label">手冊功能</div>
+                    <div class="meta-value">Prompt 語法拆解 · 外部連結 · 實作遊戲</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- =====================================================================
+         4. CONTROLS, TABS & FILTERS
+         ===================================================================== -->
+    <section class="controls-section">
+        <div class="controls-container">
+            <div class="tab-nav-wrapper">
+                <button class="tab-btn active" data-tab="all">
+                    <span>🌟 全部單元總覽</span>
+                    <span class="badge-count">33</span>
+                </button>
+                <button class="tab-btn" data-tab="handbook">
+                    <span>📖 學員實作手冊</span>
+                </button>
+                <button class="tab-btn" data-tab="prompts">
+                    <span>🪄 Prompt 詠唱指南</span>
+                </button>
+                <button class="tab-btn" data-tab="links">
+                    <span>🔗 外部資源連結目錄</span>
+                </button>
+                <button class="tab-btn" data-tab="game">
+                    <span>🎮 糖果敲磚大冒險 (Slide 33)</span>
+                </button>
+            </div>
+
+            <div class="search-filter-row">
+                <div class="search-box-wrapper">
+                    <span class="search-icon">🔍</span>
+                    <input type="text" id="searchInput" class="search-input" placeholder="即時搜尋：輸入投影片編號、主題關鍵字（如：油畫、九宮格、八卦山、LINE貼圖、打磚塊）...">
+                </div>
+
+                <div class="filter-actions-wrapper">
+                    <select id="moduleSelect" class="filter-select">
+                        <option value="all">📚 全部分類模組</option>
+                        <option value="課程前導與簡介">前導：課程簡介與理念</option>
+                        <option value="課前準備與協作資源">資源：課堂共用資源庫</option>
+                        <option value="單元一：Google Arts & Culture 藝術繆思與跨域感知">單元一：Google Arts & Culture</option>
+                        <option value="單元二：精準詠唱法則與 Nano Banana 2 生圖">單元二：精準詠唱與 Nano Banana 2</option>
+                        <option value="單元三：Google Pics 專業影像編修平台">單元三：Google Pics 專業修圖</option>
+                        <option value="單元四：Vibe Coding 與數位藝術整合">單元四：Vibe Coding 數位藝術整合</option>
+                    </select>
+
+                    <select id="jumpSlideSelect" class="filter-select">
+                        <option value="">🎯 快速跳轉至指定投影片...</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- =====================================================================
+         5. MAIN CONTENT DISPLAY
+         ===================================================================== -->
+    <main class="main-layout">
+        <div class="section-heading-box">
+            <h2>
+                <span>📑</span>
+                <span>課程研習內容詳細列表</span>
+            </h2>
+            <div id="resultCount" style="font-size: 14px; font-weight: 700; color: var(--primary);">
+                載入中...
+            </div>
+        </div>
+
+        <!-- Cards Container -->
+        <div id="slidesContainer" class="slide-grid">
+            <!-- Dynamically populated by js/app.js -->
+        </div>
+    </main>
+
+    <!-- =====================================================================
+         6. LIGHTBOX MODAL
+         ===================================================================== -->
+    <div id="lightboxModal" class="lightbox-modal">
+        <button id="lightboxClose" class="lightbox-close-btn" title="關閉放大預覽">✕</button>
+        <img id="lightboxImg" class="lightbox-img" src="" alt="放大投影片照片">
+    </div>
+
+    <!-- =====================================================================
+         7. TOAST NOTIFICATION
+         ===================================================================== -->
+    <div id="toast" class="toast-box"></div>
+
+    <!-- =====================================================================
+         8. FOOTER
+         ===================================================================== -->
+    <footer class="site-footer">
+        <div class="footer-container">
+            <div class="footer-links-row">
+                <a href="https://artsandculture.google.com/" target="_blank" rel="noopener noreferrer">🏛️ Google Arts & Culture</a>
+                <a href="https://gemini.google.com/" target="_blank" rel="noopener noreferrer">✨ Google Gemini</a>
+                <a href="http://pics.new" target="_blank" rel="noopener noreferrer">🪄 Google Pics</a>
+                <a href="https://ce2.ai/b/y3w7" target="_blank" rel="noopener noreferrer">📋 課堂白板 (ce2.ai)</a>
+                <a href="https://teami-sticker-forge.netlify.app/" target="_blank" rel="noopener noreferrer">🛠️ 貼圖工坊</a>
+                <a href="https://panoee.live/" target="_blank" rel="noopener noreferrer">🌐 Panoee 3D 全景</a>
+                <a href="https://drive.google.com/drive/folders/1RlfimRCwNTQMnMTN69RSXLMTVNG9HB9v?usp=sharing" target="_blank" rel="noopener noreferrer">📁 課程雲端硬碟</a>
+            </div>
+            <p>
+                © 2026 茶米老師教室 · 沃克資訊 | 講師：黃信溢 茶米老師<br>
+                本教學手冊由 Google AI 輔助藝術創作研習團隊精心製作 · 系統存取通行密碼：<code>nato</code>
+            </p>
+        </div>
+    </footer>
+
+    <!-- =====================================================================
+         9. SCRIPTS
+         ===================================================================== -->
+    <script src="js/slidesData.js"></script>
+    <script src="js/game.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
