@@ -1,6 +1,6 @@
 // ==========================================================================
 // Google AI 輔助藝術創作與銜接傳統媒材 · 旗艦研習教學網頁
-// Core Application Logic: Password Protection (nato), Rendering, Search, Copy
+// Core Application Logic: Password Protection, Rendering, Search, Copy
 // ==========================================================================
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const lightboxClose = document.getElementById('lightboxClose');
 
     // ----------------------------------------------------------------------
-    // 1. PASSWORD GATE LOGIC (Password: nato)
+    // 1. PASSWORD GATE LOGIC
     // ----------------------------------------------------------------------
     const checkAuth = () => {
         const isAuth = localStorage.getItem('google_ai_workshop_auth');
@@ -48,9 +48,9 @@ document.addEventListener('DOMContentLoaded', () => {
             localStorage.setItem('google_ai_workshop_auth', 'true');
             gateError.textContent = '';
             gateOverlay.classList.add('hidden');
-            showToast('密碼正確！歡迎進入 Google AI 藝術創作研習旗艦網');
+            showToast('通行碼驗證成功！歡迎進入研習手冊');
         } else {
-            gateError.textContent = '密碼錯誤，請確認後重新輸入（提示：nato）';
+            gateError.textContent = '通行碼錯誤，請確認後重新輸入';
             const card = document.querySelector('.gate-card');
             if (card) {
                 card.classList.remove('gate-shake');
