@@ -1,12 +1,13 @@
 // ==========================================================================
 // Google AI 輔助藝術創作與銜接傳統媒材 · 旗艦研習教學網頁
-// Core Application Logic: Password Protection, Rendering, Search, Copy
+// Core Application Logic: Password Protection, Video, Guidebooks, Avatar, Search
 // ==========================================================================
 
 document.addEventListener('DOMContentLoaded', () => {
     const APP_PASS = 'nato';
     let currentTab = 'all';
     let currentModule = 'all';
+    let currentGuidebookId = 1;
     let searchQuery = '';
     let breakoutGameInstance = null;
 
@@ -28,6 +29,30 @@ document.addEventListener('DOMContentLoaded', () => {
     const lightboxModal = document.getElementById('lightboxModal');
     const lightboxImg = document.getElementById('lightboxImg');
     const lightboxClose = document.getElementById('lightboxClose');
+
+    // Sections
+    const videoSection = document.getElementById('videoSection');
+    const postersSection = document.getElementById('postersSection');
+    const guidebooksSection = document.getElementById('guidebooksSection');
+    const allTopicsHeading = document.getElementById('allTopicsHeading');
+
+    // Avatar Elements
+    const heroAvatarImg = document.getElementById('heroAvatarImg');
+    const btnOpenAvatarModal = document.getElementById('btnOpenAvatarModal');
+    const btnAvatarQuickEdit = document.getElementById('btnAvatarQuickEdit');
+    const avatarModal = document.getElementById('avatarModal');
+    const avatarModalClose = document.getElementById('avatarModalClose');
+    const btnCloseAvatarDone = document.getElementById('btnCloseAvatarDone');
+    const btnResetAvatar = document.getElementById('btnResetAvatar');
+    const avatarFileInput = document.getElementById('avatarFileInput');
+    const presetAvatarItems = document.querySelectorAll('.preset-avatar-item');
+
+    // Guidebooks Elements
+    const gbTabButtons = document.querySelectorAll('.gb-tab-btn');
+    const guidebookSlidesGrid = document.getElementById('guidebookSlidesGrid');
+    const currentGbTitle = document.getElementById('currentGbTitle');
+    const currentGbSubtitle = document.getElementById('currentGbSubtitle');
+    const gbSlideCount = document.getElementById('gbSlideCount');
 
     // ----------------------------------------------------------------------
     // 1. PASSWORD GATE LOGIC
@@ -94,7 +119,95 @@ document.addEventListener('DOMContentLoaded', () => {
     checkAuth();
 
     // ----------------------------------------------------------------------
-    // 2. THEME TOGGLE (Dark / Light)
+    // 2. AVATAR REPLACEMENT / CUSTOMIZATION LOGIC
+    // ----------------------------------------------------------------------
+    const DEFAULT_AVATAR = 'assets/images/slide_01_01.png';
+
+    const loadAvatar = () => {
+        const savedAvatar = localStorage.getItem('custom_user_avatar');
+        if (savedAvatar) {
+            heroAvatarImg.src = savedAvatar;
+        } else {
+            heroAvatarImg.src = DEFAULT_AVATAR;
+        }
+    };
+
+    const saveAvatar = (avatarSrc, label = '大頭照') => {
+        try {
+            localStorage.setItem('custom_user_avatar', avatarSrc);
+            heroAvatarImg.src = avatarSrc;
+            showToast(`已成功更換${label}！`, '👤');
+        } catch (e) {
+            console.error('Storage error', e);
+            heroAvatarImg.src = avatarSrc;
+            showToast('大頭照已暫時套用', '👤');
+        }
+    };
+
+    loadAvatar();
+
+    const openAvatarModal = () => {
+        avatarModal.classList.add('active');
+    };
+
+    const closeAvatarModal = () => {
+        avatarModal.classList.remove('active');
+    };
+
+    if (btnOpenAvatarModal) btnOpenAvatarModal.addEventListener('click', openAvatarModal);
+    if (btnAvatarQuickEdit) btnAvatarQuickEdit.addEventListener('click', openAvatarModal);
+    if (avatarModalClose) avatarModalClose.addEventListener('click', closeAvatarModal);
+    if (btnCloseAvatarDone) btnCloseAvatarDone.addEventListener('click', closeAvatarModal);
+
+    avatarModal.addEventListener('click', (e) => {
+        if (e.target === avatarModal) closeAvatarModal();
+    });
+
+    // Preset Avatars Selection
+    presetAvatarItems.forEach(item => {
+        item.addEventListener('click', () => {
+            presetAvatarItems.forEach(i => i.classList.remove('active'));
+            item.classList.add('active');
+            const targetSrc = item.getAttribute('data-src');
+            saveAvatar(targetSrc, item.querySelector('span').textContent);
+        });
+    });
+
+    // Custom File Upload
+    if (avatarFileInput) {
+        avatarFileInput.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (file) {
+                if (!file.type.startsWith('image/')) {
+                    showToast('請選取有效的圖片檔案', '⚠️');
+                    return;
+                }
+                const reader = new FileReader();
+                reader.onload = (event) => {
+                    const dataUrl = event.target.result;
+                    presetAvatarItems.forEach(i => i.classList.remove('active'));
+                    saveAvatar(dataUrl, '自訂照片');
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+    }
+
+    // Reset Avatar
+    if (btnResetAvatar) {
+        btnResetAvatar.addEventListener('click', () => {
+            localStorage.removeItem('custom_user_avatar');
+            heroAvatarImg.src = DEFAULT_AVATAR;
+            presetAvatarItems.forEach((i, idx) => {
+                if (idx === 0) i.classList.add('active');
+                else i.classList.remove('active');
+            });
+            showToast('已重設為原版茶米老師大頭照', '🔄');
+        });
+    }
+
+    // ----------------------------------------------------------------------
+    // 3. THEME TOGGLE (Dark / Light)
     // ----------------------------------------------------------------------
     const initTheme = () => {
         const saved = localStorage.getItem('site_theme');
@@ -123,7 +236,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initTheme();
 
     // ----------------------------------------------------------------------
-    // 3. TOAST NOTIFICATION HELPER
+    // 4. TOAST NOTIFICATION HELPER
     // ----------------------------------------------------------------------
     let toastTimeout;
     const showToast = (message, icon = '✅') => {
@@ -136,10 +249,9 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     // ----------------------------------------------------------------------
-    // 4. POPULATE DROPDOWNS
+    // 5. POPULATE DROPDOWNS
     // ----------------------------------------------------------------------
     const populateDropdowns = () => {
-        // Jump slide dropdown
         slidesData.forEach(slide => {
             const opt = document.createElement('option');
             opt.value = slide.slideNum;
@@ -147,16 +259,25 @@ document.addEventListener('DOMContentLoaded', () => {
             jumpSlideSelect.appendChild(opt);
         });
 
-        // Jump event
         jumpSlideSelect.addEventListener('change', () => {
             const targetNum = jumpSlideSelect.value;
             if (targetNum) {
-                const targetCard = document.getElementById(`slide-card-${targetNum}`);
-                if (targetCard) {
-                    targetCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                    targetCard.style.outline = '3px solid var(--primary)';
-                    setTimeout(() => targetCard.style.outline = 'none', 1800);
+                // If section was hidden by tab, switch to 'all' tab
+                if (currentTab !== 'all') {
+                    tabButtons.forEach(b => b.classList.remove('active'));
+                    document.querySelector('[data-tab="all"]').classList.add('active');
+                    currentTab = 'all';
+                    renderSlides();
                 }
+
+                setTimeout(() => {
+                    const targetCard = document.getElementById(`slide-card-${targetNum}`);
+                    if (targetCard) {
+                        targetCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        targetCard.style.outline = '3px solid var(--primary)';
+                        setTimeout(() => targetCard.style.outline = 'none', 1800);
+                    }
+                }, 100);
             }
         });
     };
@@ -164,13 +285,12 @@ document.addEventListener('DOMContentLoaded', () => {
     populateDropdowns();
 
     // ----------------------------------------------------------------------
-    // 5. COPY TO CLIPBOARD
+    // 6. COPY TO CLIPBOARD
     // ----------------------------------------------------------------------
     window.copyText = (text, typeLabel = '內容') => {
         navigator.clipboard.writeText(text).then(() => {
             showToast(`已成功複製${typeLabel}至剪貼簿！`, '📋');
         }).catch(() => {
-            // Fallback
             const ta = document.createElement('textarea');
             ta.value = text;
             document.body.appendChild(ta);
@@ -182,7 +302,7 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     // ----------------------------------------------------------------------
-    // 6. LIGHTBOX MODAL
+    // 7. LIGHTBOX MODAL
     // ----------------------------------------------------------------------
     window.openLightbox = (src) => {
         lightboxImg.src = src;
@@ -202,15 +322,94 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && lightboxModal.classList.contains('active')) {
+        if (e.key === 'Escape') {
             lightboxModal.classList.remove('active');
+            avatarModal.classList.remove('active');
         }
     });
 
     // ----------------------------------------------------------------------
-    // 7. RENDER SLIDES FUNCTION
+    // 8. RENDER 4 GUIDEBOOKS GALLERY
+    // ----------------------------------------------------------------------
+    const renderGuidebook = (id) => {
+        const gb = (typeof guidebooksData !== 'undefined') ? guidebooksData.find(g => g.id === Number(id)) : null;
+        if (!gb || !guidebookSlidesGrid) return;
+
+        currentGbTitle.textContent = gb.title;
+        currentGbSubtitle.textContent = `${gb.subtitle} · 共 ${gb.slideCount} 頁高解析度投影片（點擊放大）`;
+        gbSlideCount.textContent = `共 ${gb.slideCount} 頁投影片`;
+
+        guidebookSlidesGrid.innerHTML = gb.slides.map(slide => `
+            <div class="gb-slide-thumb-card" onclick="openLightbox('${slide.img}')">
+                <div class="gb-slide-img-box">
+                    <img src="${slide.img}" alt="${gb.title} - ${slide.title}" loading="lazy">
+                    <span class="thumb-zoom-icon">🔍 點擊放大</span>
+                </div>
+                <div class="gb-slide-info">
+                    <span>${slide.title}</span>
+                    <span style="font-size: 11px; padding: 2px 8px; border-radius: 9999px; background: var(--primary-light); color: var(--primary); font-weight: 700;">
+                        ${gb.badge}
+                    </span>
+                </div>
+            </div>
+        `).join('');
+    };
+
+    gbTabButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+            gbTabButtons.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            currentGuidebookId = Number(btn.getAttribute('data-gb-id'));
+            renderGuidebook(currentGuidebookId);
+        });
+    });
+
+    renderGuidebook(1);
+
+    // ----------------------------------------------------------------------
+    // 9. RENDER MAIN SLIDES & TABS
     // ----------------------------------------------------------------------
     const renderSlides = () => {
+        // Toggle visibility of dedicated sections based on tab
+        if (currentTab === 'all') {
+            videoSection.style.display = 'flex';
+            postersSection.style.display = 'block';
+            guidebooksSection.style.display = 'flex';
+            allTopicsHeading.style.display = 'flex';
+            slidesContainer.style.display = 'flex';
+        } else if (currentTab === 'video') {
+            videoSection.style.display = 'flex';
+            postersSection.style.display = 'none';
+            guidebooksSection.style.display = 'none';
+            allTopicsHeading.style.display = 'none';
+            slidesContainer.style.display = 'none';
+            videoSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            return;
+        } else if (currentTab === 'posters') {
+            videoSection.style.display = 'none';
+            postersSection.style.display = 'block';
+            guidebooksSection.style.display = 'none';
+            allTopicsHeading.style.display = 'none';
+            slidesContainer.style.display = 'none';
+            postersSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            return;
+        } else if (currentTab === 'guidebooks') {
+            videoSection.style.display = 'none';
+            postersSection.style.display = 'none';
+            guidebooksSection.style.display = 'flex';
+            allTopicsHeading.style.display = 'none';
+            slidesContainer.style.display = 'none';
+            guidebooksSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            return;
+        } else {
+            // Tab is handbook, prompts, game, or links
+            videoSection.style.display = 'none';
+            postersSection.style.display = 'none';
+            guidebooksSection.style.display = 'none';
+            allTopicsHeading.style.display = 'flex';
+            slidesContainer.style.display = 'flex';
+        }
+
         slidesContainer.innerHTML = '';
 
         // Filter data
@@ -461,7 +660,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 `;
             }
 
-            bodyHTML += `</div>`; // Close card-body
+            bodyHTML += `</div>`;
             card.innerHTML = headerHTML + bodyHTML;
             slidesContainer.appendChild(card);
         });
@@ -473,9 +672,8 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     // ----------------------------------------------------------------------
-    // 8. EVENT LISTENERS FOR CONTROLS
+    // 10. EVENT LISTENERS FOR CONTROLS
     // ----------------------------------------------------------------------
-    // Tab switching
     tabButtons.forEach(btn => {
         btn.addEventListener('click', () => {
             tabButtons.forEach(b => b.classList.remove('active'));
@@ -485,7 +683,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Module dropdown filter
     if (moduleSelect) {
         moduleSelect.addEventListener('change', () => {
             currentModule = moduleSelect.value;
@@ -493,7 +690,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Search input with debounce
     let debounceTimer;
     if (searchInput) {
         searchInput.addEventListener('input', () => {

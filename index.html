@@ -61,7 +61,7 @@
     </header>
 
     <!-- =====================================================================
-         3. HERO BANNER
+         3. HERO BANNER & CREATOR PROFILE
          ===================================================================== -->
     <section class="hero-banner">
         <div class="hero-container">
@@ -71,30 +71,55 @@
                 <span class="hero-badge">🍌 Nano Banana 2 生圖</span>
                 <span class="hero-badge">🪄 Google Pics 專業修圖</span>
                 <span class="hero-badge">💻 Vibe Coding 程式即藝術</span>
+                <span class="hero-badge">🎨 南投國中美術班 AI 生圖實務</span>
             </div>
             <h2 class="hero-title">
                 以 AI 為數位畫布上的調色盤 · 賦予傳統藝術媒材全新生命
             </h2>
             <p class="hero-desc">
-                本教學手冊將簡報全方位解構並擴充為深度學員指引。結合油畫厚塗、水彩暈染、色鉛筆質地、日系漫畫線條與羊毛氈手作微縮世界，系統化收錄 33 個完整主題、清晰外鏈指引、萬能提示詞公式與一鍵複製 Prompt，帶領創作者跨越虛擬與實體媒材的鴻溝。
+                本教學手冊將簡報與實務指南全方位解構並擴充為深度學員指引。結合油畫厚塗、水彩暈染、色鉛筆質地、日系漫畫線條與羊毛氈手作微縮世界，系統化收錄 33 個完整主題、清晰外鏈指引、萬能提示詞公式與一鍵複製 Prompt，帶領創作者跨越虛擬與實體媒材的鴻溝。
             </p>
 
-            <div class="hero-meta-grid">
-                <div class="hero-meta-card">
-                    <div class="meta-label">授課講師</div>
-                    <div class="meta-value">黃信溢（茶米老師）/ 沃克資訊</div>
+            <!-- Interactive Creator Profile Row with Replaceable Avatar -->
+            <div class="hero-creator-row">
+                <div class="avatar-container">
+                    <img id="heroAvatarImg" class="user-avatar-img" src="assets/images/slide_01_01.png" alt="講師人物頭像">
+                    <div id="btnAvatarQuickEdit" class="avatar-badge-edit" title="點擊更換大頭照">✏️</div>
                 </div>
+                <div class="creator-text-info">
+                    <div class="creator-name-row">
+                        <span class="creator-name">黃信溢（茶米老師）</span>
+                        <span class="creator-role-badge">主講導師 · 沃克資訊</span>
+                        <span class="creator-role-badge" style="background: rgba(5, 150, 105, 0.35); border-color: rgba(16, 185, 129, 0.5);">南投國中美術班特聘</span>
+                    </div>
+                    <p class="creator-bio">
+                        致力於探索生成式 AI 與傳統美術媒材的跨域感知結合。點擊右方按鈕可自由更換個人大頭照或選擇 AI 動漫預設造型！
+                    </p>
+                </div>
+                <div class="avatar-btn-wrapper">
+                    <button id="btnOpenAvatarModal" class="btn-change-avatar">
+                        <span>📷</span>
+                        <span>更換大頭照</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="hero-meta-grid">
                 <div class="hero-meta-card">
                     <div class="meta-label">研習時數</div>
                     <div class="meta-value">6 小時精煉實作教學</div>
                 </div>
                 <div class="hero-meta-card">
-                    <div class="meta-label">即時白板協作</div>
-                    <div class="meta-value">ce2.ai 互動平台</div>
+                    <div class="meta-label">多媒體影音</div>
+                    <div class="meta-value">6分40秒 創作旅程影片</div>
                 </div>
                 <div class="hero-meta-card">
-                    <div class="meta-label">手冊功能</div>
-                    <div class="meta-value">Prompt 語法拆解 · 外部連結 · 實作遊戲</div>
+                    <div class="meta-label">美術班指南</div>
+                    <div class="meta-value">4 大主題實務教材 (84 頁)</div>
+                </div>
+                <div class="hero-meta-card">
+                    <div class="meta-label">即時白板協作</div>
+                    <div class="meta-value">ce2.ai 互動平台</div>
                 </div>
             </div>
         </div>
@@ -110,24 +135,33 @@
                     <span>🌟 全部單元總覽</span>
                     <span class="badge-count">33</span>
                 </button>
+                <button class="tab-btn" data-tab="video">
+                    <span>🎬 影音教學實務</span>
+                </button>
+                <button class="tab-btn" data-tab="posters">
+                    <span>📊 視覺指南海報</span>
+                </button>
+                <button class="tab-btn" data-tab="guidebooks">
+                    <span>📚 美術班四大指南</span>
+                </button>
                 <button class="tab-btn" data-tab="handbook">
                     <span>📖 學員實作手冊</span>
                 </button>
                 <button class="tab-btn" data-tab="prompts">
-                    <span>🪄 Prompt 詠唱指南</span>
-                </button>
-                <button class="tab-btn" data-tab="links">
-                    <span>🔗 外部資源連結目錄</span>
+                    <span>🪄 Prompt 詠唱寶典</span>
                 </button>
                 <button class="tab-btn" data-tab="game">
                     <span>🎮 糖果敲磚大冒險 (Slide 33)</span>
+                </button>
+                <button class="tab-btn" data-tab="links">
+                    <span>🔗 外部資源連結目錄</span>
                 </button>
             </div>
 
             <div class="search-filter-row">
                 <div class="search-box-wrapper">
                     <span class="search-icon">🔍</span>
-                    <input type="text" id="searchInput" class="search-input" placeholder="即時搜尋：輸入投影片編號、主題關鍵字（如：油畫、九宮格、八卦山、LINE貼圖、打磚塊）...">
+                    <input type="text" id="searchInput" class="search-input" placeholder="即時搜尋：輸入投影片編號、主題關鍵字（如：油畫、九宮格、八卦山、LINE貼圖、打磚塊、影音）...">
                 </div>
 
                 <div class="filter-actions-wrapper">
@@ -153,7 +187,135 @@
          5. MAIN CONTENT DISPLAY
          ===================================================================== -->
     <main class="main-layout">
-        <div class="section-heading-box">
+
+        <!-- A. VIDEO TUTORIAL SHOWCASE SECTION -->
+        <section id="videoSection" class="video-showcase-card">
+            <div class="card-header" style="background: none; padding: 0 0 16px 0; border-bottom: 1px solid var(--border-color);">
+                <div class="card-header-left">
+                    <div class="slide-badge-row">
+                        <span class="badge-slide-num" style="background: #e11d48;">精華影音</span>
+                        <span class="badge-module">南投國中美術班 · 實務導覽</span>
+                    </div>
+                    <h3 class="slide-title">🎬 創作者的旅程：AI 如何輔助藝術繪圖</h3>
+                    <p class="slide-subtitle">高清 720p · 6 分 40 秒完整實務影音教學 · 支援自適應串流與全螢幕</p>
+                </div>
+                <div class="card-quick-actions">
+                    <a href="assets/video/creator_journey_ai_art.mp4" download="創作者的旅程_AI輔助藝術繪圖.mp4" class="btn-pill">
+                        📥 下載影片 (6.8MB)
+                    </a>
+                </div>
+            </div>
+
+            <div class="video-player-wrapper">
+                <video id="tutorialVideo" controls preload="metadata" poster="assets/posters/guide_infographic_1.jpg">
+                    <source src="assets/video/creator_journey_ai_art.mp4" type="video/mp4">
+                    您的瀏覽器不支援 HTML5 影片播放。
+                </video>
+            </div>
+
+            <div class="video-details-grid">
+                <div class="video-info-box">
+                    <h4>📌 影片教學核心架構</h4>
+                    <ul class="video-keypoint-list">
+                        <li><strong>建立藝術底蘊工具</strong>：走進 3D 虛擬博物館導覽（古根漢美術館實境）</li>
+                        <li><strong>億級像素藝術相機</strong>：超高解析度放大檢視《戴珍珠耳環的少女》畫布肌理</li>
+                        <li><strong>探索藝術家檔案</strong>：深入解析拉斐爾、林布蘭與莫內的用色哲學</li>
+                        <li><strong>AI 延伸畫布魔法</strong>：破框創作、局部修補與多風格無縫混搭</li>
+                    </ul>
+                </div>
+                <div class="video-info-box">
+                    <h4>💡 觀看與實作指引</h4>
+                    <p style="font-size: 14px; line-height: 1.6; color: var(--text-muted); margin-bottom: 12px;">
+                        建議學員以分割視窗邊觀看邊操作。影片中示範了從博物館典藏找靈感、提取調色盤，到輸入提示詞生成個人化視覺作品的完整工作流。
+                    </p>
+                    <div style="display: flex; gap: 8px;">
+                        <button class="btn-pill primary" onclick="document.getElementById('tutorialVideo').play()">▶ 立即播放</button>
+                        <button class="btn-pill" onclick="document.getElementById('tutorialVideo').currentTime = 90">⏩ 跳至藝術相機技巧 (1:30)</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- B. INFOGRAPHICS POSTERS SECTION -->
+        <section id="postersSection" style="margin-bottom: 36px;">
+            <div class="section-heading-box">
+                <h2>
+                    <span>📊</span>
+                    <span>AI 藝術創作實務指南 · 兩大視覺導覽圖譜</span>
+                </h2>
+                <span style="font-size: 13px; color: var(--text-muted);">高清 1920px 視覺圖解 · 點擊可放大檢視</span>
+            </div>
+
+            <div class="infographics-grid">
+                <!-- Poster 1 -->
+                <div class="poster-card">
+                    <div class="poster-image-box" onclick="openLightbox('assets/posters/guide_infographic_1.jpg')">
+                        <img src="assets/posters/guide_infographic_1.webp" alt="AI 藝術創作與生成實務指南" loading="lazy">
+                        <span class="thumb-zoom-icon">🔍 點擊高清放大</span>
+                    </div>
+                    <div class="poster-body">
+                        <h3 class="poster-title">AI 藝術創作與生成實務指南</h3>
+                        <p class="poster-desc">
+                            系統化解析生圖兩大步：第一步「靈感探索與素材累積」，第二步「提示詞構建與參數設定」。涵蓋 9:16、1:1、16:9 長寬比定義與參考圖片工作流程。
+                        </p>
+                        <div class="poster-actions">
+                            <button class="btn-pill" onclick="openLightbox('assets/posters/guide_infographic_1.jpg')">🔍 燈箱全螢幕</button>
+                            <a href="assets/posters/guide_infographic_1.jpg" download="AI藝術創作與生成實務指南.jpg" class="btn-pill primary">📥 下載圖檔</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Poster 2 -->
+                <div class="poster-card">
+                    <div class="poster-image-box" onclick="openLightbox('assets/posters/guide_infographic_2.jpg')">
+                        <img src="assets/posters/guide_infographic_2.webp" alt="AI 視覺創作與藝術應用指南" loading="lazy">
+                        <span class="thumb-zoom-icon">🔍 點擊高清放大</span>
+                    </div>
+                    <div class="poster-body">
+                        <h3 class="poster-title">AI 視覺創作與藝術應用指南</h3>
+                        <p class="poster-desc">
+                            指引學習者如何結合 Google 藝術典藏與生成式 AI 工具。階段一「線上賞析與 AI 擴展」，階段二「主題生成與圖像創作」，串聯 3D 虛擬博物館互動導覽。
+                        </p>
+                        <div class="poster-actions">
+                            <button class="btn-pill" onclick="openLightbox('assets/posters/guide_infographic_2.jpg')">🔍 燈箱全螢幕</button>
+                            <a href="assets/posters/guide_infographic_2.jpg" download="AI視覺創作與藝術應用指南.jpg" class="btn-pill primary">📥 下載圖檔</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- C. 4 GUIDEBOOKS GALLERY (84 SLIDES) -->
+        <section id="guidebooksSection" class="guidebooks-section">
+            <div class="section-heading-box">
+                <h2>
+                    <span>📚</span>
+                    <span>南投國中美術班專題 · 四大主題 AI 生圖實務指南教材庫</span>
+                </h2>
+                <span id="gbSlideCount" style="font-size: 13px; font-weight: 700; color: var(--primary);">共 21 頁投影片</span>
+            </div>
+
+            <!-- Guidebooks Sub-tabs -->
+            <div class="guidebooks-tab-nav">
+                <button class="gb-tab-btn active" data-gb-id="1">🎨 指南一：AI 藝術創作全攻略</button>
+                <button class="gb-tab-btn" data-gb-id="2">🔮 指南二：AI 藝術創作魔法書</button>
+                <button class="gb-tab-btn" data-gb-id="3">🏛️ 指南三：AI 藝術創作實務指南</button>
+                <button class="gb-tab-btn" data-gb-id="4">✨ 指南四：AI 藝術生圖魔法課</button>
+            </div>
+
+            <div id="guidebookTitleBanner" style="padding: 14px 20px; background: var(--bg-surface); border: 1px solid var(--border-color); border-radius: var(--radius-md);">
+                <h3 id="currentGbTitle" style="font-size: 18px; font-weight: 800; color: var(--primary);">指南一：AI 藝術創作全攻略</h3>
+                <p id="currentGbSubtitle" style="font-size: 13px; color: var(--text-muted); margin-top: 4px;">玩轉工具，激發無限創意！· 點擊下方任一縮圖即可開啟高清幻燈片預覽</p>
+            </div>
+
+            <!-- Slides Grid -->
+            <div id="guidebookSlidesGrid" class="guidebook-slides-grid">
+                <!-- Dynamically rendered by app.js -->
+            </div>
+        </section>
+
+        <!-- D. SLIDES & HANDBOOK CONTAINER (33 TOPICS) -->
+        <div class="section-heading-box" id="allTopicsHeading">
             <h2>
                 <span>📑</span>
                 <span>課程研習內容詳細列表</span>
@@ -163,14 +325,67 @@
             </div>
         </div>
 
-        <!-- Cards Container -->
         <div id="slidesContainer" class="slide-grid">
             <!-- Dynamically populated by js/app.js -->
         </div>
     </main>
 
     <!-- =====================================================================
-         6. LIGHTBOX MODAL
+         6. AVATAR SWITCHER MODAL
+         ===================================================================== -->
+    <div id="avatarModal" class="avatar-modal-overlay">
+        <div class="avatar-modal-card">
+            <div class="avatar-modal-header">
+                <h3 class="avatar-modal-title">
+                    <span>📷</span>
+                    <span>更換個人大頭照</span>
+                </h3>
+                <button id="avatarModalClose" class="btn-icon" style="border: none; font-size: 20px;">✕</button>
+            </div>
+
+            <p style="font-size: 14px; color: var(--text-muted); line-height: 1.5;">
+                您可以選擇系統預設造型，或上傳您自己的個人照片/創作頭像，系統將即時套用並儲存於瀏覽器中！
+            </p>
+
+            <!-- Presets Grid -->
+            <div>
+                <span style="font-size: 13px; font-weight: 700; color: var(--text-muted); text-transform: uppercase;">系統風格預設造型：</span>
+                <div class="avatar-presets-grid">
+                    <div class="preset-avatar-item active" data-src="assets/images/slide_01_01.png">
+                        <img src="assets/images/slide_01_01.png" alt="茶米老師原版">
+                        <span>茶米老師原版</span>
+                    </div>
+                    <div class="preset-avatar-item" data-src="assets/images/slide_13_02.png">
+                        <img src="assets/images/slide_13_02.png" alt="Q版換裝造型">
+                        <span>Q版動漫造型</span>
+                    </div>
+                    <div class="preset-avatar-item" data-src="assets/images/slide_20_01.png">
+                        <img src="assets/images/slide_20_01.png" alt="色鉛筆手繪">
+                        <span>色鉛筆手繪造型</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Custom File Upload -->
+            <div>
+                <span style="font-size: 13px; font-weight: 700; color: var(--text-muted); text-transform: uppercase;">自訂上傳照片：</span>
+                <div class="avatar-upload-box" onclick="document.getElementById('avatarFileInput').click()">
+                    <span style="font-size: 28px;">📤</span>
+                    <p style="font-size: 14px; font-weight: 700; margin-top: 6px;">點擊選取本地照片檔案</p>
+                    <span style="font-size: 12px; color: var(--text-muted);">支援 JPG, PNG, WEBP (建議 1:1 正方形)</span>
+                    <input type="file" id="avatarFileInput" accept="image/*" style="display: none;">
+                </div>
+            </div>
+
+            <div class="avatar-modal-actions">
+                <button id="btnResetAvatar" class="btn-pill">🔄 重設為預設</button>
+                <button id="btnCloseAvatarDone" class="btn-pill primary">✅ 完成設定</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- =====================================================================
+         7. LIGHTBOX MODAL
          ===================================================================== -->
     <div id="lightboxModal" class="lightbox-modal">
         <button id="lightboxClose" class="lightbox-close-btn" title="關閉放大預覽">✕</button>
@@ -178,12 +393,12 @@
     </div>
 
     <!-- =====================================================================
-         7. TOAST NOTIFICATION
+         8. TOAST NOTIFICATION
          ===================================================================== -->
     <div id="toast" class="toast-box"></div>
 
     <!-- =====================================================================
-         8. FOOTER
+         9. FOOTER
          ===================================================================== -->
     <footer class="site-footer">
         <div class="footer-container">
@@ -204,9 +419,10 @@
     </footer>
 
     <!-- =====================================================================
-         9. SCRIPTS
+         10. SCRIPTS
          ===================================================================== -->
     <script src="js/slidesData.js"></script>
+    <script src="js/guidebooksData.js"></script>
     <script src="js/game.js"></script>
     <script src="js/app.js"></script>
 </body>
