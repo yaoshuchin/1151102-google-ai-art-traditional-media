@@ -34,6 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const videoSection = document.getElementById('videoSection');
     const postersSection = document.getElementById('postersSection');
     const guidebooksSection = document.getElementById('guidebooksSection');
+    const photosSection = document.getElementById('photosSection');
     const allTopicsHeading = document.getElementById('allTopicsHeading');
 
     // Avatar Elements
@@ -375,12 +376,14 @@ document.addEventListener('DOMContentLoaded', () => {
             videoSection.style.display = 'flex';
             postersSection.style.display = 'block';
             guidebooksSection.style.display = 'flex';
+            if (photosSection) photosSection.style.display = 'flex';
             allTopicsHeading.style.display = 'flex';
             slidesContainer.style.display = 'flex';
         } else if (currentTab === 'video') {
             videoSection.style.display = 'flex';
             postersSection.style.display = 'none';
             guidebooksSection.style.display = 'none';
+            if (photosSection) photosSection.style.display = 'none';
             allTopicsHeading.style.display = 'none';
             slidesContainer.style.display = 'none';
             videoSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -389,6 +392,7 @@ document.addEventListener('DOMContentLoaded', () => {
             videoSection.style.display = 'none';
             postersSection.style.display = 'block';
             guidebooksSection.style.display = 'none';
+            if (photosSection) photosSection.style.display = 'none';
             allTopicsHeading.style.display = 'none';
             slidesContainer.style.display = 'none';
             postersSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -397,15 +401,26 @@ document.addEventListener('DOMContentLoaded', () => {
             videoSection.style.display = 'none';
             postersSection.style.display = 'none';
             guidebooksSection.style.display = 'flex';
+            if (photosSection) photosSection.style.display = 'none';
             allTopicsHeading.style.display = 'none';
             slidesContainer.style.display = 'none';
             guidebooksSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            return;
+        } else if (currentTab === 'photos') {
+            videoSection.style.display = 'none';
+            postersSection.style.display = 'none';
+            guidebooksSection.style.display = 'none';
+            if (photosSection) photosSection.style.display = 'flex';
+            allTopicsHeading.style.display = 'none';
+            slidesContainer.style.display = 'none';
+            if (photosSection) photosSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
             return;
         } else {
             // Tab is handbook, prompts, game, or links
             videoSection.style.display = 'none';
             postersSection.style.display = 'none';
             guidebooksSection.style.display = 'none';
+            if (photosSection) photosSection.style.display = 'none';
             allTopicsHeading.style.display = 'flex';
             slidesContainer.style.display = 'flex';
         }

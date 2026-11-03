@@ -43,6 +43,12 @@ const slidesData = [
     ],
     "links": [
       {
+        "title": "藝才班計畫相片紀錄 (Google Photos)",
+        "url": "https://photos.app.goo.gl/c7vvwq8wAJBNWYfcA",
+        "badge": "活動相簿",
+        "description": "南投國中美術班（藝才班）研習活動、學員實作、成果展覽與師生互動高畫質照片雲端相簿。"
+      },
+      {
         "title": "ce2.ai 互動協作白板",
         "url": "https://ce2.ai/b/y3w7",
         "badge": "課堂白板",

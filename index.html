@@ -51,6 +51,9 @@
                 </div>
             </a>
             <div class="header-controls">
+                <a href="https://photos.app.goo.gl/c7vvwq8wAJBNWYfcA" target="_blank" rel="noopener noreferrer" class="btn-pill" style="border-color: rgba(66, 133, 244, 0.4); background: rgba(66, 133, 244, 0.15); color: #60a5fa;" title="開啟 Google Photos 藝才班計畫相片紀錄">
+                    📸 藝才班計畫相片紀錄
+                </a>
                 <button id="btnThemeToggle" class="btn-icon" title="切換深色/淺色外觀">🌙</button>
                 <button id="btnLock" class="btn-pill" title="重新鎖定網頁">🔒 重新上鎖</button>
                 <a href="https://drive.google.com/drive/folders/1RlfimRCwNTQMnMTN69RSXLMTVNG9HB9v?usp=sharing" target="_blank" rel="noopener noreferrer" class="btn-pill primary">
@@ -143,6 +146,9 @@
                 </button>
                 <button class="tab-btn" data-tab="guidebooks">
                     <span>📚 美術班四大指南</span>
+                </button>
+                <button class="tab-btn" data-tab="photos">
+                    <span>📸 藝才班相片紀錄</span>
                 </button>
                 <button class="tab-btn" data-tab="handbook">
                     <span>📖 學員實作手冊</span>
@@ -314,7 +320,74 @@
             </div>
         </section>
 
-        <!-- D. SLIDES & HANDBOOK CONTAINER (33 TOPICS) -->
+        <!-- D. ART TALENT CLASS GOOGLE PHOTOS ALBUM SECTION -->
+        <section id="photosSection" class="photos-album-card">
+            <div class="card-header" style="background: none; padding: 0 0 16px 0; border-bottom: 1px solid var(--border-color);">
+                <div class="card-header-left">
+                    <div class="slide-badge-row">
+                        <span class="badge-slide-num" style="background: linear-gradient(135deg, #4285F4, #34A853);">相簿紀錄</span>
+                        <span class="badge-module">南投國中美術班 · 成果典藏</span>
+                    </div>
+                    <h3 class="slide-title">📸 藝才班計畫相片紀錄 · Google Photos 線上相簿</h3>
+                    <p class="slide-subtitle">完整紀錄國中美術班（藝才班）研習活動、學員實作、AI 生圖創作過程與師生交流精彩瞬間</p>
+                </div>
+                <div class="card-quick-actions">
+                    <button class="btn-pill" onclick="copyText('https://photos.app.goo.gl/c7vvwq8wAJBNWYfcA', '相簿連結')">
+                        📋 複製相簿連結
+                    </button>
+                    <a href="https://photos.app.goo.gl/c7vvwq8wAJBNWYfcA" target="_blank" rel="noopener noreferrer" class="btn-pill primary" style="background: linear-gradient(135deg, #4285F4, #1a73e8);">
+                        ↗ 前往 Google Photos 高清相本
+                    </a>
+                </div>
+            </div>
+
+            <div class="album-viewer-window">
+                <div class="album-window-header">
+                    <div class="album-window-dots">
+                        <span class="window-dot red"></span>
+                        <span class="window-dot yellow"></span>
+                        <span class="window-dot green"></span>
+                    </div>
+                    <div class="album-window-title">
+                        <span>📷</span>
+                        <span>Google Photos · 1151102美術班 (藝才班計畫相片紀錄)</span>
+                    </div>
+                    <a href="https://photos.app.goo.gl/c7vvwq8wAJBNWYfcA" target="_blank" rel="noopener noreferrer" class="btn-photos-main" style="padding: 6px 14px; font-size: 13px;">
+                        <span>在新分頁檢視</span>
+                        <span>↗</span>
+                    </a>
+                </div>
+
+                <div class="album-frame-container">
+                    <iframe src="https://photos.app.goo.gl/c7vvwq8wAJBNWYfcA" title="藝才班計畫相片紀錄" loading="lazy" allowfullscreen></iframe>
+                    
+                    <div class="album-overlay-banner">
+                        <div class="album-banner-icon">📸</div>
+                        <h4 class="album-banner-title">藝才班計畫相片紀錄 · 雲端實體相簿</h4>
+                        <p class="album-banner-subtitle">
+                            已為您同步串接 Google Photos 線上相簿《1151102美術班》。因 Google 官方相簿安全防護策略限制跨站嵌入預覽，請直接點擊下方按鈕以 Google 相簿官方全螢幕畫廊模式暢覽高畫質照片與原圖！
+                        </p>
+                        <div class="album-meta-pills">
+                            <span class="album-meta-pill">🏛️ 南投國中美術班（藝才班）</span>
+                            <span class="album-meta-pill">✨ 研習實況紀錄</span>
+                            <span class="album-meta-pill">🖼️ 成果與創作集錦</span>
+                            <span class="album-meta-pill">⚡ Google 雲端極速載入</span>
+                        </div>
+                        <div style="display: flex; gap: 12px; margin-top: 14px; flex-wrap: wrap; justify-content: center;">
+                            <a href="https://photos.app.goo.gl/c7vvwq8wAJBNWYfcA" target="_blank" rel="noopener noreferrer" class="btn-photos-main" style="font-size: 15px; padding: 12px 26px;">
+                                <span>📸 開啟 Google Photos 高清相本</span>
+                                <span>↗</span>
+                            </a>
+                            <button class="btn-pill" onclick="copyText('https://photos.app.goo.gl/c7vvwq8wAJBNWYfcA', '相簿連結')" style="background: rgba(255,255,255,0.15); color: #fff; border-color: rgba(255,255,255,0.3); padding: 12px 20px;">
+                                📋 複製相簿分享連結
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- E. SLIDES & HANDBOOK CONTAINER (33 TOPICS) -->
         <div class="section-heading-box" id="allTopicsHeading">
             <h2>
                 <span>📑</span>
@@ -403,6 +476,7 @@
     <footer class="site-footer">
         <div class="footer-container">
             <div class="footer-links-row">
+                <a href="https://photos.app.goo.gl/c7vvwq8wAJBNWYfcA" target="_blank" rel="noopener noreferrer">📸 藝才班計畫相片紀錄</a>
                 <a href="https://artsandculture.google.com/" target="_blank" rel="noopener noreferrer">🏛️ Google Arts & Culture</a>
                 <a href="https://gemini.google.com/" target="_blank" rel="noopener noreferrer">✨ Google Gemini</a>
                 <a href="http://pics.new" target="_blank" rel="noopener noreferrer">🪄 Google Pics</a>
