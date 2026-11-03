@@ -42,6 +42,59 @@
          2. SITE HEADER & NAVIGATION
          ===================================================================== -->
     <header class="site-header">
+        <!-- Top Preference & Accessibility Bar: 字體、布景顏色、風格模式 -->
+        <div class="top-preference-bar">
+            <div class="top-preference-container">
+                <div class="top-pref-group-wrapper">
+                    <!-- 1. 網頁字體：大、中、小 -->
+                    <div class="top-pref-group" role="group" aria-label="網頁字體">
+                        <span class="top-pref-label">
+                            <span class="top-pref-icon">🔤</span>
+                            <span>網頁字體：</span>
+                        </span>
+                        <div class="pref-btn-group" id="fontSizeGroup">
+                            <button type="button" class="pref-btn" data-font="large" title="大字體模式">大</button>
+                            <button type="button" class="pref-btn active" data-font="medium" title="中字體（標準）">中</button>
+                            <button type="button" class="pref-btn" data-font="small" title="小字體模式">小</button>
+                        </div>
+                    </div>
+
+                    <div class="top-pref-divider"></div>
+
+                    <!-- 2. 網頁布景：淺色、深色、淡綠 -->
+                    <div class="top-pref-group" role="group" aria-label="網頁布景">
+                        <span class="top-pref-label">
+                            <span class="top-pref-icon">🎨</span>
+                            <span>網頁布景：</span>
+                        </span>
+                        <div class="pref-btn-group" id="themeGroup">
+                            <button type="button" class="pref-btn active" data-theme-btn="light" title="淺色明亮布景">淺色</button>
+                            <button type="button" class="pref-btn" data-theme-btn="dark" title="深色夜間布景">深色</button>
+                            <button type="button" class="pref-btn" data-theme-btn="sage" title="淡綠護眼布景">淡綠</button>
+                        </div>
+                    </div>
+
+                    <div class="top-pref-divider"></div>
+
+                    <!-- 3. 網頁風格：正常、可愛(在網頁增添emoji) -->
+                    <div class="top-pref-group" role="group" aria-label="網頁布景風格">
+                        <span class="top-pref-label">
+                            <span class="top-pref-icon">✨</span>
+                            <span>網頁風格：</span>
+                        </span>
+                        <div class="pref-btn-group" id="styleGroup">
+                            <button type="button" class="pref-btn active" data-style-btn="normal" title="正常標準專業風格">正常</button>
+                            <button type="button" class="pref-btn" data-style-btn="cute" title="可愛風格 (在網頁增添Emoji)">可愛</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="top-pref-status">
+                    <span class="top-status-indicator" id="topStatusIndicator">中字體 · 淺色 · 正常風格</span>
+                </div>
+            </div>
+        </div>
+
         <div class="header-container">
             <a href="#" class="brand-wrapper">
                 <div class="brand-logo-badge">🎨</div>

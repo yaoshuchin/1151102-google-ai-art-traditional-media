@@ -208,36 +208,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ----------------------------------------------------------------------
-    // 3. THEME TOGGLE (Dark / Light)
-    // ----------------------------------------------------------------------
-    const initTheme = () => {
-        const saved = localStorage.getItem('site_theme');
-        if (saved === 'dark' || (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-            document.documentElement.setAttribute('data-theme', 'dark');
-            btnThemeToggle.textContent = '☀️';
-        } else {
-            document.documentElement.removeAttribute('data-theme');
-            btnThemeToggle.textContent = '🌙';
-        }
-    };
-
-    btnThemeToggle.addEventListener('click', () => {
-        const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-        if (isDark) {
-            document.documentElement.removeAttribute('data-theme');
-            localStorage.setItem('site_theme', 'light');
-            btnThemeToggle.textContent = '🌙';
-        } else {
-            document.documentElement.setAttribute('data-theme', 'dark');
-            localStorage.setItem('site_theme', 'dark');
-            btnThemeToggle.textContent = '☀️';
-        }
-    });
-
-    initTheme();
-
-    // ----------------------------------------------------------------------
-    // 4. TOAST NOTIFICATION HELPER
+    // 3. TOAST NOTIFICATION HELPER
     // ----------------------------------------------------------------------
     let toastTimeout;
     const showToast = (message, icon = '✅') => {
@@ -248,6 +219,172 @@ document.addEventListener('DOMContentLoaded', () => {
             toastEl.classList.remove('show');
         }, 2800);
     };
+
+    // ----------------------------------------------------------------------
+    // 4. TOP PREFERENCES: FONT SIZE, THEMES, MOOD STYLES & HEADER HEIGHT
+    // ----------------------------------------------------------------------
+    const fontButtons = document.querySelectorAll('#fontSizeGroup .pref-btn');
+    const themeButtons = document.querySelectorAll('#themeGroup .pref-btn');
+    const styleButtons = document.querySelectorAll('#styleGroup .pref-btn');
+    const topStatusIndicator = document.getElementById('topStatusIndicator');
+    const siteHeaderEl = document.querySelector('.site-header');
+
+    const updateHeaderHeight = () => {
+        if (siteHeaderEl) {
+            const h = siteHeaderEl.offsetHeight;
+            document.documentElement.style.setProperty('--site-header-height', `${h}px`);
+        }
+    };
+
+    window.addEventListener('resize', updateHeaderHeight);
+
+    const updateStatusIndicator = () => {
+        if (!topStatusIndicator) return;
+        const currentFont = document.documentElement.getAttribute('data-font-size') || 'medium';
+        const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
+        const currentStyle = document.documentElement.getAttribute('data-style') || 'normal';
+
+        const fontMap = { 'large': '大字體', 'medium': '中字體', 'small': '小字體' };
+        const themeMap = { 'light': '淺色', 'dark': '深色', 'sage': '淡綠' };
+        const styleMap = { 'normal': '正常風格', 'cute': '可愛 Emoji 🌸' };
+
+        topStatusIndicator.textContent = `${fontMap[currentFont] || '中字體'} · ${themeMap[currentTheme] || '淺色'} · ${styleMap[currentStyle] || '正常風格'}`;
+    };
+
+    // A. 網頁字體（大、中、小）
+    const setFontSize = (size, triggerToast = false) => {
+        const validSizes = ['large', 'medium', 'small'];
+        if (!validSizes.includes(size)) size = 'medium';
+
+        document.documentElement.setAttribute('data-font-size', size);
+        localStorage.setItem('site_font_size', size);
+
+        fontButtons.forEach(btn => {
+            if (btn.getAttribute('data-font') === size) {
+                btn.classList.add('active');
+            } else {
+                btn.classList.remove('active');
+            }
+        });
+
+        updateStatusIndicator();
+        updateHeaderHeight();
+
+        if (triggerToast) {
+            const labels = { 'large': '大字體模式', 'medium': '中字體（標準）', 'small': '小字體模式' };
+            showToast(`已切換為${labels[size]}`, '🔤');
+        }
+    };
+
+    fontButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const size = btn.getAttribute('data-font');
+            setFontSize(size, true);
+        });
+    });
+
+    // B. 網頁布景（淺色、深色、淡綠）
+    const setTheme = (theme, triggerToast = false) => {
+        const validThemes = ['light', 'dark', 'sage'];
+        if (!validThemes.includes(theme)) theme = 'light';
+
+        if (theme === 'light') {
+            document.documentElement.removeAttribute('data-theme');
+        } else {
+            document.documentElement.setAttribute('data-theme', theme);
+        }
+        localStorage.setItem('site_theme', theme);
+
+        themeButtons.forEach(btn => {
+            if (btn.getAttribute('data-theme-btn') === theme) {
+                btn.classList.add('active');
+            } else {
+                btn.classList.remove('active');
+            }
+        });
+
+        if (btnThemeToggle) {
+            if (theme === 'dark') btnThemeToggle.textContent = '☀️';
+            else if (theme === 'sage') btnThemeToggle.textContent = '🍵';
+            else btnThemeToggle.textContent = '🌙';
+        }
+
+        updateStatusIndicator();
+        updateHeaderHeight();
+
+        if (triggerToast) {
+            const labels = { 'light': '淺色明亮布景', 'dark': '深色夜間布景', 'sage': '淡綠護眼舒緩布景' };
+            const icons = { 'light': '☀️', 'dark': '🌙', 'sage': '🍵' };
+            showToast(`已套用${labels[theme]}`, icons[theme]);
+        }
+    };
+
+    themeButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const theme = btn.getAttribute('data-theme-btn');
+            setTheme(theme, true);
+        });
+    });
+
+    if (btnThemeToggle) {
+        btnThemeToggle.addEventListener('click', () => {
+            const current = localStorage.getItem('site_theme') || 'light';
+            let next = 'dark';
+            if (current === 'light') next = 'dark';
+            else if (current === 'dark') next = 'sage';
+            else if (current === 'sage') next = 'light';
+            setTheme(next, true);
+        });
+    }
+
+    // C. 網頁風格布景（正常、可愛 - 在網頁增添Emoji）
+    const setStyleMode = (style, triggerToast = false) => {
+        const validStyles = ['normal', 'cute'];
+        if (!validStyles.includes(style)) style = 'normal';
+
+        document.documentElement.setAttribute('data-style', style);
+        localStorage.setItem('site_style_mode', style);
+
+        styleButtons.forEach(btn => {
+            if (btn.getAttribute('data-style-btn') === style) {
+                btn.classList.add('active');
+            } else {
+                btn.classList.remove('active');
+            }
+        });
+
+        updateStatusIndicator();
+        updateHeaderHeight();
+
+        if (triggerToast) {
+            if (style === 'cute') {
+                showToast('已切換為可愛風格！網頁增添滿滿萌系 Emoji 🌸✨', '🐾');
+            } else {
+                showToast('已切換為正常標準專業版面 🌿', '✨');
+            }
+        }
+    };
+
+    styleButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const style = btn.getAttribute('data-style-btn');
+            setStyleMode(style, true);
+        });
+    });
+
+    // 初始載入偏好設定
+    const initPreferences = () => {
+        const savedFont = localStorage.getItem('site_font_size') || 'medium';
+        const savedTheme = localStorage.getItem('site_theme') || 'light';
+        const savedStyle = localStorage.getItem('site_style_mode') || 'normal';
+
+        setFontSize(savedFont, false);
+        setTheme(savedTheme, false);
+        setStyleMode(savedStyle, false);
+        setTimeout(updateHeaderHeight, 150);
+    };
+
+    initPreferences();
 
     // ----------------------------------------------------------------------
     // 5. POPULATE DROPDOWNS
